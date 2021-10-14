@@ -10,6 +10,8 @@ int main (void)
 
     playerstart();
     playerdisp();
+    
+    uint16_t loops = 1;
 
     while (1)
     {
@@ -20,7 +22,7 @@ int main (void)
             playerdisp();
             loops = 2;
         } else if (loops == 2) {
-            mapdisp();
+            //mapdisp();
             loops = 1;
         }
 

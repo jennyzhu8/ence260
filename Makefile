@@ -27,7 +27,7 @@ test.out: test.o pio.o system.o timer.o display.o ledmat.o font.o pacer.o tinygl
 .PHONY: maze
 maze: maze.out
 	$(OBJCOPY) -O ihex maze.out maze.hex
-	dfu-programmer atmega32u2 erase; dfu-programmer atmega32u2 flash make.hex; dfu-programmer atmega32u2 start
+	dfu-programmer atmega32u2 erase; dfu-programmer atmega32u2 flash maze.hex; dfu-programmer atmega32u2 start
 
 maze.out: maze.o pio.o system.o timer.o pacer.o ledmat.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
@@ -71,12 +71,23 @@ playermove.o: playermove.c ../../drivers/avr/system.h ../../drivers/avr/pio.h ..
 maze.o: maze.c ../../drivers/avr/pio.h ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/ledmat.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
+navswitch.o: ../../drivers/navswitch.c ../../drivers/avr/delay.h ../../drivers/avr/pio.h ../../drivers/avr/system.h ../../drivers/navswitch.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
 
 # Link: create ELF output file from object files.
 game.out: game.o pio.o system.o timer.o display.o ledmat.o font.o pacer.o tinygl.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 	$(SIZE) $@
 
+.PHONY: player
+player: player.out
+	$(OBJCOPY) -O ihex player.out player.hex
+	dfu-programmer atmega32u2 erase; dfu-programmer atmega32u2 flash player.hex; dfu-programmer atmega32u2 start
+
+player.out: playermove.o pio.o system.o navswitch.o
+	$(CC) $(CFLAGS) $^ -o $@ -lm
+	$(SIZE) $@
 
 
 # Target: clean project.
