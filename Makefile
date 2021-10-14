@@ -26,6 +26,9 @@ test.out: test.o pio.o system.o timer.o display.o ledmat.o font.o pacer.o tinygl
 
 
 # Compile: create object files from C source files.
+game.o: game.c ../../drivers/avr/system.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
 test.o: test.c ../../drivers/avr/system.h ../../drivers/display.h ../../fonts/font5x7_1.h ../../utils/font.h ../../utils/pacer.h ../../utils/tinygl.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
@@ -51,6 +54,9 @@ pacer.o: ../../utils/pacer.c ../../drivers/avr/system.h ../../drivers/avr/timer.
 	$(CC) -c $(CFLAGS) $< -o $@
 
 tinygl.o: ../../utils/tinygl.c ../../drivers/avr/system.h ../../drivers/display.h ../../utils/font.h ../../utils/tinygl.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
+playermove.o: playermove.c ../../drivers/avr/system.h ../../drivers/avr/pio.h ../../drivers/navswitch.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 
