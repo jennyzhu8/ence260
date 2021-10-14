@@ -65,7 +65,7 @@ pacer.o: ../../utils/pacer.c ../../drivers/avr/system.h ../../drivers/avr/timer.
 tinygl.o: ../../utils/tinygl.c ../../drivers/avr/system.h ../../drivers/display.h ../../utils/font.h ../../utils/tinygl.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-playermove.o: playermove.c ../../drivers/avr/system.h ../../drivers/avr/pio.h ../../drivers/navswitch.h
+playermove.o: playermove.c ../../drivers/avr/system.h ../../drivers/navswitch.h ../../utils/tinygl.h ../../drivers/display.h ../../utils/font.h playermove.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 maze.o: maze.c ../../drivers/avr/pio.h ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/ledmat.h
@@ -74,9 +74,12 @@ maze.o: maze.c ../../drivers/avr/pio.h ../../drivers/avr/system.h ../../utils/pa
 navswitch.o: ../../drivers/navswitch.c ../../drivers/avr/delay.h ../../drivers/avr/pio.h ../../drivers/avr/system.h ../../drivers/navswitch.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
+level.o: level.c ../../drivers/avr/system.h ../../drivers/navswitch.h ../../utils/tinygl.h ../../drivers/display.h ../../utils/font.h ../../utils/pacer.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
 
 # Link: create ELF output file from object files.
-game.out: game.o pio.o system.o timer.o display.o ledmat.o font.o pacer.o tinygl.o navswitch.o playermove.o
+game.out: game.o system.o timer.o display.o ledmat.o font.o pacer.o tinygl.o navswitch.o playermove.o level.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 	$(SIZE) $@
 

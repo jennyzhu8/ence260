@@ -3,7 +3,6 @@
 
 #include "system.h"
 #include "navswitch.h"
-#include "pio.h"
 #include "tinygl.h"
 #include "display.h"
 #include "font.h"

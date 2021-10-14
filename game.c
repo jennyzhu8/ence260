@@ -1,18 +1,33 @@
 #include "system.h"
 #include "navswitch.h"
-#include "pio.h"
 #include "playermove.h"
 #include "tinygl.h"
 #include "display.h"
 #include "font.h"
+#include "level.h"
+#include "../fonts/font5x7_1.h"
+
+#define PACER_RATE 500
+#define MESSAGE_RATE 10
 
 int main(void)
 {
     system_init();
     navswitch_init();
-    tinygl_init(100);
-    playerstart();
+    tinygl_init (PACER_RATE);
+    tinygl_font_set (&font5x7_1);
+    tinygl_text_speed_set (MESSAGE_RATE);
 
+    pacer_init (PACER_RATE);
+
+    uint8_t freq = 0;
+    while (freq == 0) {
+        freq = chooselevel();
+    }
+
+    tinygl_clear();
+
+/*
     pio_config_set(LEDMAT_ROW1_PIO, PIO_OUTPUT_HIGH);
     pio_config_set(LEDMAT_ROW2_PIO, PIO_OUTPUT_HIGH);
     pio_config_set(LEDMAT_ROW3_PIO, PIO_OUTPUT_HIGH);
@@ -26,6 +41,11 @@ int main(void)
     pio_config_set(LEDMAT_COL3_PIO, PIO_OUTPUT_HIGH);
     pio_config_set(LEDMAT_COL4_PIO, PIO_OUTPUT_HIGH);
     pio_config_set(LEDMAT_COL5_PIO, PIO_OUTPUT_HIGH);
+*/
+
+    playerstart();
+
+
     
     while (1) {
         tinygl_update();

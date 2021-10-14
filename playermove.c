@@ -2,7 +2,6 @@
 
 #include "system.h"
 #include "navswitch.h"
-#include "pio.h"
 #include "playermove.h"
 #include "tinygl.h"
 #include "display.h"
