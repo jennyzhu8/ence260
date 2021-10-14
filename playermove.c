@@ -4,19 +4,26 @@
 #include "navswitch.h"
 #include "pio.h"
 
-void playerdisp(void)
+static uint16_t playerrow;
+static uint16_t playercol;
+
+void playerdisp(uint16_t playerrow, uint16_t playercol)
 {
+    // turn off all leds
+
     // turn on led at player position
-    pio_output_low(playercol);
-    pio_output_low(playerrow);
-    //do we need to make sure that all the other leds are off? 
+    pio_t col = playercolled(playercol);
+    pio_t row = playerrowled(playerrow);
+    pio_output_low(col);
+    pio_output_low(row);
+
 }
 
 void playerstart(void)
 {
     // set player to start position
-    pio_t playercol = 3;
-    pio_t playerrow = 7;
+    uint16_t playercol = 3;
+    uint16_t playerrow = 7;
 }
 
 void playermove(void)
@@ -51,4 +58,58 @@ void playermove(void)
     }
 }
 
+pio_t playerrowled(uint16_t playerrow)
+{
+    pio_t playerrowled
+    switch (row)
+    {
+        case 1:
+            playerrowled = LEDMAT_ROW1_PIO;
+            break;
+        case 2:
+            playerrowled = LEDMAT_ROW2_PIO;
+            break;
+        case 3:
+            playerrowled = LEDMAT_ROW3_PIO;
+            break;
+        case 4:
+            playerrowled = LEDMAT_ROW4_PIO;
+            break;
+        case 5:
+            playerrowled = LEDMAT_ROW5_PIO;
+            break;
+        case 6:
+            playerrowled = LEDMAT_ROW6_PIO;
+            break;
+        case 7:
+            playerrowled = LEDMAT_ROW7_PIO;
+            break;
+    }
+    return playerrowled;
+}
+
+
+pio_t playercolled(uint16_t playercol)
+{
+    pio_t playercolled
+    switch (col)
+    {
+        case 1:
+            playercolled = LEDMAT_COL1_PIO;
+            break;
+        case 2:
+            playercolled = LEDMAT_COL2_PIO;
+            break;
+        case 3:
+            playercolled = LEDMAT_COL3_PIO;
+            break;
+        case 4:
+            playercolled = LEDMAT_COL4_PIO;
+            break;
+        case 5:
+            playercolled = LEDMAT_COL5_PIO;
+            break;
+    }
+    return playercolled;
+}
 
