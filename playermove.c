@@ -3,99 +3,30 @@
 #include "system.h"
 #include "navswitch.h"
 #include "pio.h"
+#include "playermove.h"
+#include "tinygl.h"
+#include "display.h"
+#include "font.h"
 
-static uint16_t playerrow;
-static uint16_t playercol;
+
+static tinygl_point_t player;
+static tinygl_point_t playerlast;
+
 
 void playerstart(void)
 {
     // set player to start position
-    playercol = 3;
-    playerrow = 7;
-}
-
-pio_t playerrowled(uint16_t playerrow)
-{
-    pio_t playerrowled;
-    switch (playerrow)
-    {
-        case 1:
-            playerrowled = LEDMAT_ROW1_PIO;
-            break;
-        case 2:
-            playerrowled = LEDMAT_ROW2_PIO;
-            break;
-        case 3:
-            playerrowled = LEDMAT_ROW3_PIO;
-            break;
-        case 4:
-            playerrowled = LEDMAT_ROW4_PIO;
-            break;
-        case 5:
-            playerrowled = LEDMAT_ROW5_PIO;
-            break;
-        case 6:
-            playerrowled = LEDMAT_ROW6_PIO;
-            break;
-        case 7:
-            playerrowled = LEDMAT_ROW7_PIO;
-            break;
-        default:
-            playerrowled = LEDMAT_ROW7_PIO;
-            break;
-    }
-    return playerrowled;
+    player.x = 2;
+    player.y = 6;
 }
 
 
-pio_t playercolled(uint16_t playercol)
+void playerdisp(void)
 {
-    pio_t playercolled;
-    switch (playercol)
-    {
-        case 1:
-            playercolled = LEDMAT_COL1_PIO;
-            break;
-        case 2:
-            playercolled = LEDMAT_COL2_PIO;
-            break;
-        case 3:
-            playercolled = LEDMAT_COL3_PIO;
-            break;
-        case 4:
-            playercolled = LEDMAT_COL4_PIO;
-            break;
-        case 5:
-            playercolled = LEDMAT_COL5_PIO;
-            break;
-        default:
-            playercolled = LEDMAT_COL3_PIO;
-            break;
-    }
-    return playercolled;
-}
-
-void playerdisp(uint16_t playerrow, uint16_t playercol)
-{
-    // turn off all leds
-
     // turn on led at player position
-    pio_t col = playercolled(playercol);
-    pio_t row = playerrowled(playerrow);
-    pio_output_low(col);
-    pio_output_low(row);
 
-    for (uint16_t row = 1; row < 8; row++) {
-        if (row != playerrow) {
-            pio_output_high(playerrowled(row));
-        }
-    }
-
-    for (uint16_t col = 1; col < 6; col++) {
-        if (col != playercol) {
-            pio_output_high(playercolled(col));
-        }
-    }
+    tinygl_draw_point(playerlast, 0);
+    tinygl_draw_point(player, 1);
 
 }
 
@@ -103,39 +34,49 @@ void playerdisp(uint16_t playerrow, uint16_t playercol)
 
 void playermove(void)
 {
+    playerlast.x = player.x;
+    playerlast.y = player.y;
+
     if (navswitch_push_event_p (NAVSWITCH_NORTH)) {
         // move right
-        //if playerrow-- != (lit led in map)
-        playerrow--;
+        //eventually change to if playerrow-- != (lit led in map), else if...
+        if (player.y > 0) {
+            player.y--;
+        }
         //else playerrow stays the same
 
     } else if (navswitch_push_event_p (NAVSWITCH_SOUTH)) {
         // move left
-        //if playerrow++ != (lit led in map)
-        playerrow++;
+        //change to if playerrow++ != (lit led in map), else if...
+        if (player.y < 6) {
+            player.y++;
+        }
         //else playerrow stays the same
 
     } else if (navswitch_push_event_p (NAVSWITCH_EAST)) {
         // move down
-        if (playercol == 5) {
-            playercol = 1;
+        if (player.x == 4) {
+            player.x = 0;
         } else {
-            playercol++;
+            player.x++;
         }
 
     } else if (navswitch_push_event_p (NAVSWITCH_WEST)) {
         // move up
-        if (playercol == 1) {
-            playercol = 5;
+        if (player.x == 0) {
+            player.x = 4;
         } else {
-            playercol--;
+            player.x--;
         }
     }
 }
 
-
+/*
 int main(void)
 {
+    system_init();
+    navswitch_init();
+    tinygl_init(100);
     playerstart();
 
     pio_config_set(LEDMAT_ROW1_PIO, PIO_OUTPUT_HIGH);
@@ -153,9 +94,11 @@ int main(void)
     pio_config_set(LEDMAT_COL5_PIO, PIO_OUTPUT_HIGH);
     
     while (1) {
-        playerdisp(playerrow, playercol);
+        tinygl_update();
+        playerdisp();
         navswitch_update();
         playermove();
     }
 }
+*/
 

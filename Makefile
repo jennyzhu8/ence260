@@ -76,7 +76,7 @@ navswitch.o: ../../drivers/navswitch.c ../../drivers/avr/delay.h ../../drivers/a
 
 
 # Link: create ELF output file from object files.
-game.out: game.o pio.o system.o timer.o display.o ledmat.o font.o pacer.o tinygl.o
+game.out: game.o pio.o system.o timer.o display.o ledmat.o font.o pacer.o tinygl.o navswitch.o playermove.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 	$(SIZE) $@
 
@@ -85,7 +85,7 @@ player: player.out
 	$(OBJCOPY) -O ihex player.out player.hex
 	dfu-programmer atmega32u2 erase; dfu-programmer atmega32u2 flash player.hex; dfu-programmer atmega32u2 start
 
-player.out: playermove.o pio.o system.o navswitch.o
+player.out: playermove.o pio.o system.o navswitch.o tinygl.o display.o font.o ledmat.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 	$(SIZE) $@
 
