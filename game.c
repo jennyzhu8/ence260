@@ -1,30 +1,56 @@
 #include "system.h"
-#include "playermove.h"
 #include "navswitch.h"
-#include "pio.h"
+#include "playermove.h"
+#include "tinygl.h"
+#include "display.h"
+#include "font.h"
+#include "level.h"
+#include "../fonts/font5x7_1.h"
 
-int main (void)
+#define PACER_RATE 500
+#define MESSAGE_RATE 10
+
+int main(void)
 {
-    system_init ();
+    system_init();
     navswitch_init();
+    tinygl_init (PACER_RATE);
+    tinygl_font_set (&font5x7_1);
+    tinygl_text_speed_set (MESSAGE_RATE);
+
+    pacer_init (PACER_RATE);
+
+    uint8_t freq = 0;
+    while (freq == 0) {
+        freq = chooselevel();
+    }
+
+    tinygl_clear();
+
+/*
+    pio_config_set(LEDMAT_ROW1_PIO, PIO_OUTPUT_HIGH);
+    pio_config_set(LEDMAT_ROW2_PIO, PIO_OUTPUT_HIGH);
+    pio_config_set(LEDMAT_ROW3_PIO, PIO_OUTPUT_HIGH);
+    pio_config_set(LEDMAT_ROW4_PIO, PIO_OUTPUT_HIGH);
+    pio_config_set(LEDMAT_ROW5_PIO, PIO_OUTPUT_HIGH);
+    pio_config_set(LEDMAT_ROW6_PIO, PIO_OUTPUT_HIGH);
+    pio_config_set(LEDMAT_ROW7_PIO, PIO_OUTPUT_HIGH);
+
+    pio_config_set(LEDMAT_COL1_PIO, PIO_OUTPUT_HIGH);
+    pio_config_set(LEDMAT_COL2_PIO, PIO_OUTPUT_HIGH);
+    pio_config_set(LEDMAT_COL3_PIO, PIO_OUTPUT_HIGH);
+    pio_config_set(LEDMAT_COL4_PIO, PIO_OUTPUT_HIGH);
+    pio_config_set(LEDMAT_COL5_PIO, PIO_OUTPUT_HIGH);
+*/
 
     playerstart();
-    playerdisp();
+
+
     
-    uint16_t loops = 1;
-
-    while (1)
-    {
-
+    while (1) {
+        tinygl_update();
+        playerdisp();
         navswitch_update();
         playermove();
-        if (loops == 1) {
-            playerdisp();
-            loops = 2;
-        } else if (loops == 2) {
-            //mapdisp();
-            loops = 1;
-        }
-
     }
 }
