@@ -14,6 +14,12 @@ void playerstart(void);
 void playerdisp(void);
 
 // change player position
-void playermove(void);
+int playermove(void);
+
+// check if player has hit wall
+void hitwall(int array[5][27], int window);
+
+// display end game message
+void gameover(void);
 
 #endif

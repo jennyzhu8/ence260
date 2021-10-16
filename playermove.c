@@ -6,6 +6,8 @@
 #include "tinygl.h"
 #include "display.h"
 #include "font.h"
+#include "pacer.h" //ADD TO MAKEFILE
+
 
 static tinygl_point_t player;
 static tinygl_point_t playerlast;
@@ -23,10 +25,11 @@ void playerdisp(void) {
     tinygl_draw_point(player, 1);
 }
 
-void playermove(void)
+int playermove(void)
 {
     playerlast.x = player.x;
     playerlast.y = player.y;
+    int playerdead = 0;
 
     if (navswitch_push_event_p (NAVSWITCH_NORTH)) {
         // move right
@@ -37,7 +40,6 @@ void playermove(void)
         //else playerrow stays the same
     } else if (navswitch_push_event_p (NAVSWITCH_SOUTH)) {
         // move left
-        //change to if playerrow++ != (lit led in map), else if...
         if (player.y < 6) {
             player.y++;
         }
@@ -56,6 +58,28 @@ void playermove(void)
         } else {
             player.x--;
         }
+    }
+
+    if (player.y < 0) {
+        playerdead = 1;
+    }
+    return playerdead;
+}
+
+void hitwall(int array[5][27], int window)
+{
+    if (array[player.x][player.y + window]) {
+        player.y--;
+    }
+}
+
+void gameover(void)
+{
+    tinygl_text_mode_set(TINYGL_TEXT_MODE_SCROLL);
+    tinygl_text("GAME OVER");
+    while (1) {
+        pacer_wait();
+        tinygl_update();
     }
 }
 

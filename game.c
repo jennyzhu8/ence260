@@ -69,24 +69,32 @@ int main(void)
     };
 
     //uint8_t loop = 1;
+    int playerdead = 0;
     while (1) {
-      tinygl_update();
-      playerdisp();
-      navswitch_update();
-      playermove();
-      //loop = 2;
-      tinygl_update();
-      x_window_tick++;
-      draw_array(maze_array, x_window);
-      if (x_window_tick >= maze_speed) {
-        x_window++;
-        x_window_tick = 0;
-      }
-      //int num_rows = sizeof(maze_array[0]) / sizeof(maze_array[0][0]); //=27
-      if (x_window >= 20) {
-        x_window = 0;
-        //x_window_tick = 0;
-      }
-      //loop = 1;
+
+        while (playerdead == 0) {
+          tinygl_update();
+          playerdisp();
+          navswitch_update();
+          playerdead = playermove();
+          hitwall(maze_array, x_window);
+
+          tinygl_update();
+          x_window_tick++;
+          draw_array(maze_array, x_window);
+          if (x_window_tick >= maze_speed) {
+            x_window++;
+            x_window_tick = 0;
+          }
+          //int num_rows = sizeof(maze_array[0]) / sizeof(maze_array[0][0]); //=27
+          if (x_window >= 20) {
+            x_window = 0;
+            //x_window_tick = 0;
+          }
+          //loop = 1;
+        }
+
+    gameover();
+    
     }
 }
