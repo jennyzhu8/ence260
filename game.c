@@ -71,7 +71,6 @@ int main(void)
     //uint8_t loop = 1;
     int playerdead = 0;
     while (1) {
-
         while (playerdead == 0) {
           tinygl_update();
           playerdisp();
@@ -93,8 +92,6 @@ int main(void)
           }
           //loop = 1;
         }
-
-    gameover();
-    
+        gameover();
     }
 }
