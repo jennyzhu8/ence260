@@ -7,11 +7,13 @@
 #include "font.h"
 #include "pacer.h"
 
+/*
 #define EASY 500
 #define MEDIUM 1000
 #define HARD 1500
+*/
 
-static uint8_t freq = 0;
+//static uint16_t freq = 0;
 static char message[] = "EMH";
 static uint16_t index = 0;
 
@@ -24,47 +26,38 @@ void display_level (char mode)
     tinygl_text (buffer);
 }
 
-uint16_t chooselevel(void)
-{
+uint16_t chooselevel(void) {
 
     pacer_wait ();
     tinygl_update ();
-    
     navswitch_update();
-    
+
     if (navswitch_push_event_p (NAVSWITCH_EAST)) {
         if (index >= 2) {
             index = 0;
         } else {
             index++;
         }
-        
     } else if (navswitch_push_event_p (NAVSWITCH_WEST)) {
-        if (index <= 0) {
+        if (index == 0) {
             index = 2;
         } else {
             index--;
         }
-
     }
-
-    if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
-        switch (index) {
-            case 0:
-                freq = EASY;
-                break;
-            case 1:
-                freq = MEDIUM;
-                break;
-            case 2:
-                freq = HARD;
-                break;
-        }
-    }
-    
     char mode = message[index];
     display_level (mode);
 
-    return freq;
-
+    /*
+    if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
+        if (index == 0) {
+          freq = EASY;
+        } else if (index == 1) {
+          freq = MEDIUM;
+        } else if (index == 2) {
+          freq = HARD;
+        }
+    }
+    */
+    return index;
 }
