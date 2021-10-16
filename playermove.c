@@ -16,7 +16,7 @@ void playerstart(void)
 {
     // set player to start position
     player.x = 2;
-    player.y = 6;
+    player.y = 0;
 }
 
 

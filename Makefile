@@ -1,7 +1,7 @@
 # File:   Makefile
-# Author: J. ZHU
+# Author: J. ZHU, G. ROSEMERGY
 # Date:   12 OCT 2021
-# Descr:  Makefile for test file
+# Descr:  Makefile for game file
 
 # Definitions.
 CC = avr-gcc
@@ -29,7 +29,7 @@ maze: maze.out
 	$(OBJCOPY) -O ihex maze.out maze.hex
 	dfu-programmer atmega32u2 erase; dfu-programmer atmega32u2 flash maze.hex; dfu-programmer atmega32u2 start
 
-maze.out: maze.o pio.o system.o timer.o pacer.o ledmat.o
+maze.out: maze.o pio.o system.o timer.o pacer.o ledmat.o tinygl.o display.o font.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 	$(SIZE) $@
 
@@ -68,7 +68,7 @@ tinygl.o: ../../utils/tinygl.c ../../drivers/avr/system.h ../../drivers/display.
 playermove.o: playermove.c ../../drivers/avr/system.h ../../drivers/navswitch.h ../../utils/tinygl.h ../../drivers/display.h ../../utils/font.h playermove.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-maze.o: maze/maze.c ../../drivers/avr/pio.h ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/ledmat.h
+maze.o: maze.c ../../drivers/avr/pio.h ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/ledmat.h ../../utils/tinygl.h ../../drivers/display.h maze.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 navswitch.o: ../../drivers/navswitch.c ../../drivers/avr/delay.h ../../drivers/avr/pio.h ../../drivers/avr/system.h ../../drivers/navswitch.h

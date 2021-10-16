@@ -4,7 +4,6 @@
 #include "ledmat.h"
 #include "display.h"
 #include "tinygl.h"
-#include "maze.h"
 
 #define MAZE_SPEED_VALUE 1500
 

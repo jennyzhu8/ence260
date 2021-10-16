@@ -7,9 +7,9 @@
 #include "font.h"
 #include "pacer.h"
 
-#define EASY 1
-#define MEDIUM 2
-#define HARD 3
+#define EASY 1500
+#define MEDIUM 2000
+#define HARD 2500
 
 static uint8_t freq = 0;
 static char message[] = "EMH";
@@ -24,7 +24,7 @@ void display_level (char mode)
     tinygl_text (buffer);
 }
 
-uint8_t chooselevel(void)
+uint16_t chooselevel(void)
 {
 
     pacer_wait ();

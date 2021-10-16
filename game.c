@@ -25,6 +25,16 @@ int main(void)
         freq = chooselevel();
     }
 
+    int x_window = 0;
+    uint16_t x_window_tick = 0;
+    int maze_array[5][27] = {
+    {1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,1,0,0},
+    {1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
+    {0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,1,0,0},
+    {1,0,0,1,0,0,0,0,0,1,0,0,1,0,0,1,0,0,1,0,0,0,0,0,1,0,0},
+    {1,0,0,1,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0},
+    };
+
     tinygl_clear();
 
 /*
@@ -45,12 +55,32 @@ int main(void)
 
     playerstart();
 
-
+    uint8_t loop = 1;
     
     while (1) {
-        tinygl_update();
-        playerdisp();
-        navswitch_update();
-        playermove();
+        if (loop == 1) {
+
+            tinygl_update();
+            playerdisp();
+            navswitch_update();
+            playermove();
+            loop = 2;
+
+        } else if (loop == 2) {
+
+            tinygl_update();
+            x_window_tick++;
+            draw_array(maze_array, x_window);
+            if (x_window_tick >= freq) {
+              x_window++;
+              x_window_tick = 0;
+            }
+            //int num_rows = sizeof(maze_array[0]) / sizeof(maze_array[0][0]); //=27
+            if (x_window >= 20) {
+              x_window = 0;
+              x_window_tick = 0;
+            }
+            loop = 1;
+        }
     }
 }
