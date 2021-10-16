@@ -79,7 +79,7 @@ level.o: level.c ../../drivers/avr/system.h ../../drivers/navswitch.h ../../util
 
 
 # Link: create ELF output file from object files.
-game.out: game.o system.o timer.o display.o ledmat.o font.o pacer.o tinygl.o navswitch.o playermove.o level.o
+game.out: game.o system.o timer.o display.o ledmat.o font.o pacer.o tinygl.o navswitch.o playermove.o level.o maze.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 	$(SIZE) $@
 

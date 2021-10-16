@@ -31,7 +31,7 @@ int get_maze_array(void) {
   return maze_array;
 } */
 
-int main(void) {
+/*int main(void) {
 
   system_init();
   tinygl_init(100);
@@ -60,7 +60,7 @@ int main(void) {
       x_window_tick = 0;
     }
   }
-}
+}*/
 /*defining game levels
 typedef enum {
   EASY,

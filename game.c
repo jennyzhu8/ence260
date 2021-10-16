@@ -6,6 +6,7 @@
 #include "font.h"
 #include "level.h"
 #include "../fonts/font5x7_1.h"
+#include "maze.h"
 
 #define PACER_RATE 500
 #define MESSAGE_RATE 10

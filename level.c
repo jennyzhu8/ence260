@@ -7,9 +7,9 @@
 #include "font.h"
 #include "pacer.h"
 
-#define EASY 1500
-#define MEDIUM 2000
-#define HARD 2500
+#define EASY 500
+#define MEDIUM 1000
+#define HARD 1500
 
 static uint8_t freq = 0;
 static char message[] = "EMH";
