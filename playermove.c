@@ -7,7 +7,22 @@
 #include "display.h"
 #include "font.h"
 #include "pacer.h" //ADD TO MAKEFILE
+#include "button.h" //ADD TO MAKEFILE
+#include "pio.h"
 
+
+#define BUTTON_PIO PIO_DEFINE (PORT_D, 7)
+/** Return non-zero if button pressed.  */
+int button_pressed_p (void)
+{
+    return (PIND & (1<<7));
+}
+
+/** Initialise button1.  */
+void button_init (void)
+{
+    pio_config_set(BUTTON_PIO, PIO_INPUT);
+}
 
 static tinygl_point_t player;
 static tinygl_point_t playerlast;
@@ -17,7 +32,6 @@ void playerstart(void) {
     player.x = 2;
     player.y = 0;
 }
-
 
 void playerdisp(void) {
     // turn on led at player position
@@ -62,6 +76,7 @@ int playermove(void)
 
     if (player.y < 0) {
         playerdead = 1;
+        tinygl_clear();
     }
     return playerdead;
 }
@@ -75,11 +90,16 @@ void hitwall(int array[5][33], int window)
 
 void gameover(void)
 {
+    button_init();
     tinygl_text_mode_set(TINYGL_TEXT_MODE_SCROLL);
     tinygl_text("GAME OVER");
     while (1) {
         pacer_wait();
         tinygl_update();
+        if (button_pressed_p()) {
+          // uint16_t maze_speed = 0;
+          break;
+        }
     }
 }
 
