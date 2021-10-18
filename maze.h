@@ -8,6 +8,6 @@
 #include "tinygl.h"
 
 // draw maze array
-void draw_array(int maze_array[5][27], int x_window);
+void draw_array(int maze_array[5][33], int x_window);
 
 #endif

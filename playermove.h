@@ -17,7 +17,7 @@ void playerdisp(void);
 int playermove(void);
 
 // check if player has hit wall
-void hitwall(int array[5][27], int window);
+void hitwall(int array[5][33], int window);
 
 // display end game message
 void gameover(void);

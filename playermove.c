@@ -66,7 +66,7 @@ int playermove(void)
     return playerdead;
 }
 
-void hitwall(int array[5][27], int window)
+void hitwall(int array[5][33], int window)
 {
     if (array[player.x][player.y + window]) {
         player.y--;
