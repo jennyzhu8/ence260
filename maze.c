@@ -8,7 +8,7 @@
 //#define MAZE_SPEED_VALUE 1500
 
 //Draws maze array according to maze shift
-void draw_array(int maze_array[5][27], int x_window) {
+void draw_array(int maze_array[5][33], int x_window) {
   for (int col=0; col<5; col++) {
     tinygl_coord_t x = col;
     for (int row=x_window; row<x_window+7; row++) {
