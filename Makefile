@@ -65,7 +65,7 @@ pacer.o: ../../utils/pacer.c ../../drivers/avr/system.h ../../drivers/avr/timer.
 tinygl.o: ../../utils/tinygl.c ../../drivers/avr/system.h ../../drivers/display.h ../../utils/font.h ../../utils/tinygl.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-playermove.o: playermove.c ../../drivers/avr/system.h ../../drivers/navswitch.h ../../utils/tinygl.h ../../drivers/display.h ../../utils/font.h playermove.h
+playermove.o: playermove.c ../../drivers/avr/system.h ../../drivers/navswitch.h ../../utils/tinygl.h ../../drivers/display.h ../../utils/font.h playermove.h ../../utils/pacer.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 maze.o: maze.c ../../drivers/avr/pio.h ../../drivers/avr/system.h ../../utils/pacer.h ../../drivers/ledmat.h ../../utils/tinygl.h ../../drivers/display.h maze.h

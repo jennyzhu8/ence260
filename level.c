@@ -1,4 +1,8 @@
-// Choose difficulty level (speed of maze)
+/** File:   Level.c
+    Author: J. ZHU, G. ROSEMERGY
+    Date:   12 OCT 2021
+    Descr:  Choose difficulty level (speed of maze)
+*/
 
 #include "system.h"
 #include "navswitch.h"
@@ -7,13 +11,7 @@
 #include "font.h"
 #include "pacer.h"
 
-/*
-#define EASY 500
-#define MEDIUM 1000
-#define HARD 1500
-*/
 
-//static uint16_t freq = 0;
 static char message[] = "EMH";
 static uint16_t index = 0;
 
