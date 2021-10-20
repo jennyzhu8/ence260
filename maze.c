@@ -1,7 +1,7 @@
 /** File:   Level.c
     Author: J. ZHU, G. ROSEMERGY
     Date:   12 OCT 2021
-    Descr:  Maze layout module
+    Descr:  Maze layout update module
 */
 
 #include "system.h"
@@ -10,8 +10,7 @@
 #include "display.h"
 #include "tinygl.h"
 
-
-//Draws maze array according to maze shift
+//Draws a segment of the maze array onto the LED screen according to the maze shift
 void draw_array(int maze_array[5][33], int x_window) {
   for (int col=0; col<5; col++) {
     tinygl_coord_t x = col;
@@ -24,5 +23,3 @@ void draw_array(int maze_array[5][33], int x_window) {
     }
   }
 }
-
-//Put maze shifting function back into this module

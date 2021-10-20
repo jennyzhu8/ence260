@@ -15,11 +15,10 @@
 #include "font.h"
 #include "pacer.h"
 
-
-// display level options
+// Display level options
 void display_level (char mode);
 
-// choose level of difficulty
+// Choose difficulty level and returns index of level
 uint8_t chooselevel(void);
 
 #endif

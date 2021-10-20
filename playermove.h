@@ -1,7 +1,7 @@
 /** File:   Level.c
     Author: J. ZHU, G. ROSEMERGY
     Date:   12 OCT 2021
-    Descr:  Player movement support
+    Descr:  Player movement and position support
 */
 
 #ifndef PLAYERMOVE_H
@@ -16,22 +16,22 @@
 #include "pio.h"
 #include "pacer.h"
 
-// define start position
+// Initialise player start position
 void playerstart(void);
 
-// display player position
+// Display player position
 void playerdisp(void);
 
-// change player position
+// Change player position
 int playermove(void);
 
-// check if player has hit wall
+// Check if player has hit wall; if so, player position -1
 void hitwall(int array[5][33], int window);
 
-// display end game message
+// Display game end message
 void gameover(void);
 
-// checks if button pressed
+// Checks if button pressed to return to main menu
 int button_pressed_p (void);
 
 #endif
