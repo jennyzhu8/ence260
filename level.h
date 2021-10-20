@@ -1,3 +1,9 @@
+/** File:   Level.c
+    Author: J. ZHU, G. ROSEMERGY
+    Date:   12 OCT 2021
+    Descr:  Choose difficulty level (speed of maze) support
+*/
+
 #ifndef LEVEL_H
 #define LEVEL_H
 

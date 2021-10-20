@@ -1,3 +1,9 @@
+/** File:   Level.c
+    Author: J. ZHU, G. ROSEMERGY
+    Date:   12 OCT 2021
+    Descr:  Player movement support
+*/
+
 #ifndef PLAYERMOVE_H
 #define PLAYERMOVE_H
 
@@ -24,9 +30,6 @@ void hitwall(int array[5][33], int window);
 
 // display end game message
 void gameover(void);
-
-// initialises restart game button
-void button_init (void);
 
 // checks if button pressed
 int button_pressed_p (void);

@@ -1,3 +1,9 @@
+/** File:   game.c
+    Author: J. ZHU, G. ROSEMERGY
+    Date:   21 OCT 2021
+    Descr:  implementation of maze game
+*/
+
 #include "system.h"
 #include "navswitch.h"
 #include "playermove.h"
@@ -35,6 +41,7 @@ int main(void)
       {0,0,1,0,0,0,0,0,1,0,0,1,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0},
     };
 
+    //
     while (1) {
       uint16_t maze_speed = 0;
       while (maze_speed == 0) {
@@ -51,21 +58,6 @@ int main(void)
       }
       tinygl_clear();
 
-        /*
-        pio_config_set(LEDMAT_ROW1_PIO, PIO_OUTPUT_HIGH);
-        pio_config_set(LEDMAT_ROW2_PIO, PIO_OUTPUT_HIGH);
-        pio_config_set(LEDMAT_ROW3_PIO, PIO_OUTPUT_HIGH);
-        pio_config_set(LEDMAT_ROW4_PIO, PIO_OUTPUT_HIGH);
-        pio_config_set(LEDMAT_ROW5_PIO, PIO_OUTPUT_HIGH);
-        pio_config_set(LEDMAT_ROW6_PIO, PIO_OUTPUT_HIGH);
-        pio_config_set(LEDMAT_ROW7_PIO, PIO_OUTPUT_HIGH);
-
-        pio_config_set(LEDMAT_COL1_PIO, PIO_OUTPUT_HIGH);
-        pio_config_set(LEDMAT_COL2_PIO, PIO_OUTPUT_HIGH);
-        pio_config_set(LEDMAT_COL3_PIO, PIO_OUTPUT_HIGH);
-        pio_config_set(LEDMAT_COL4_PIO, PIO_OUTPUT_HIGH);
-        pio_config_set(LEDMAT_COL5_PIO, PIO_OUTPUT_HIGH);
-        */
 
       playerstart();
       int playerdead = 0;
@@ -73,25 +65,37 @@ int main(void)
       uint16_t x_window_tick = 0;
 
       while (playerdead == 0) {
+
+          // update player
           tinygl_update();
           playerdisp();
           navswitch_update();
           playerdead = playermove();
           hitwall(maze_array, x_window);
 
+          // update maze
           tinygl_update();
           x_window_tick++;
           draw_array(maze_array, x_window);
+
           if (x_window_tick >= maze_speed) {
             x_window++;
             x_window_tick = 0;
+
+            // increase maze speed as you play
+            if (maze_speed > 450) {
+                maze_speed -= maze_speed / 50;
+            }
+
           }
-          //int num_rows = sizeof(maze_array[0]) / sizeof(maze_array[0][0]); //=27
+
           if (x_window > 26) {
               x_window = 0;
           }
       }
+
       tinygl_clear();
       gameover();
+
     }
 }

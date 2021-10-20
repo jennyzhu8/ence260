@@ -1,0 +1,7 @@
+The maze game has three difficulty levels: easy, medium, and hard. These determine how fast the maze moves at the beginning of the game. To scroll through the level options, use the navigation switch. When the desired level is shown, press the switch down to start the game.
+
+Use the nav switch to move in any direction around the screen and avoid the maze obstacles. The movement wraps around the screen horizontally (when held so that the nav switch is to the right of the LED screen) so the player can move to the far right from the far left by moving left once. The vertical ends of the screen do not behave the same way and instead act as barriers to the player.
+
+If the player hits a wall, it will push them back until they either move away from it or are pushed off screen. If the player is pushed off screen, the game ends. As you play, the maze gradually speeds up until it reaches a set fastest speed.
+
+Once the game is over, you can return to the menu by pressing the button.

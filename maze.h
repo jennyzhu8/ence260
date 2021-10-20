@@ -1,3 +1,9 @@
+/** File:   Level.c
+    Author: J. ZHU, G. ROSEMERGY
+    Date:   12 OCT 2021
+    Descr:  Maze layout support
+*/
+
 #ifndef MAZE_H
 #define MAZE_H
 

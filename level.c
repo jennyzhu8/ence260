@@ -1,7 +1,7 @@
 /** File:   Level.c
     Author: J. ZHU, G. ROSEMERGY
     Date:   12 OCT 2021
-    Descr:  Choose difficulty level (speed of maze)
+    Descr:  Choose difficulty level (speed of maze) module
 */
 
 #include "system.h"
@@ -46,16 +46,5 @@ uint16_t chooselevel(void) {
     char mode = message[index];
     display_level (mode);
 
-    /*
-    if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
-        if (index == 0) {
-          freq = EASY;
-        } else if (index == 1) {
-          freq = MEDIUM;
-        } else if (index == 2) {
-          freq = HARD;
-        }
-    }
-    */
     return index;
 }

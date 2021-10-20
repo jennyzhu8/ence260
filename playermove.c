@@ -1,4 +1,9 @@
-// Move player around the board. //
+/** File:   Level.c
+    Author: J. ZHU, G. ROSEMERGY
+    Date:   12 OCT 2021
+    Descr:  Player movement module
+*/
+
 
 #include "system.h"
 #include "navswitch.h"
@@ -6,23 +11,19 @@
 #include "tinygl.h"
 #include "display.h"
 #include "font.h"
-#include "pacer.h" //ADD TO MAKEFILE
-#include "button.h" //ADD TO MAKEFILE
+#include "pacer.h"
+#include "button.h"
 #include "pio.h"
 
 
 #define BUTTON_PIO PIO_DEFINE (PORT_D, 7)
+
 /** Return non-zero if button pressed.  */
 int button_pressed_p (void)
 {
     return (PIND & (1<<7));
 }
 
-/** Initialise button1.  */
-void button_init (void)
-{
-    pio_config_set(BUTTON_PIO, PIO_INPUT);
-}
 
 static tinygl_point_t player;
 static tinygl_point_t playerlast;
@@ -41,23 +42,25 @@ void playerdisp(void) {
 
 int playermove(void)
 {
+    // record previous position
     playerlast.x = player.x;
     playerlast.y = player.y;
     int playerdead = 0;
 
     if (navswitch_push_event_p (NAVSWITCH_NORTH)) {
         // move right
-        //eventually change to if playerrow-- != (lit led in map), else if...
         if (player.y > 0) {
             player.y--;
         }
         //else playerrow stays the same
+
     } else if (navswitch_push_event_p (NAVSWITCH_SOUTH)) {
         // move left
         if (player.y < 6) {
             player.y++;
         }
         //else playerrow stays the same
+
     } else if (navswitch_push_event_p (NAVSWITCH_EAST)) {
         // move down
         if (player.x == 4) {
@@ -65,6 +68,7 @@ int playermove(void)
         } else {
             player.x++;
         }
+
     } else if (navswitch_push_event_p (NAVSWITCH_WEST)) {
         // move up
         if (player.x == 0) {
@@ -72,6 +76,7 @@ int playermove(void)
         } else {
             player.x--;
         }
+
     }
 
     if (player.y < 0) {
@@ -97,25 +102,7 @@ void gameover(void)
         pacer_wait();
         tinygl_update();
         if (button_pressed_p()) {
-          // uint16_t maze_speed = 0;
           break;
         }
     }
 }
-
-/*
-int main(void)
-{
-    system_init();
-    navswitch_init();
-    tinygl_init(100);
-    playerstart();
-
-    while (1) {
-        tinygl_update();
-        playerdisp();
-        navswitch_update();
-        playermove();
-    }
-}
-*/

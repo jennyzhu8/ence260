@@ -77,12 +77,12 @@ navswitch.o: ../../drivers/navswitch.c ../../drivers/avr/delay.h ../../drivers/a
 level.o: level.c ../../drivers/avr/system.h ../../drivers/navswitch.h ../../utils/tinygl.h ../../drivers/display.h ../../utils/font.h ../../utils/pacer.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-button.o: button.c ../../drivers/avr/system.h ../../drivers/avr/pio.h ../../drivers/button.h
+button.o: ../../drivers/button.c ../../drivers/avr/system.h ../../drivers/avr/pio.h ../../drivers/button.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 
 # Link: create ELF output file from object files.
-game.out: game.o system.o timer.o display.o ledmat.o font.o pacer.o tinygl.o navswitch.o playermove.o level.o maze.o pio.o
+game.out: game.o system.o timer.o display.o ledmat.o font.o pacer.o tinygl.o navswitch.o playermove.o level.o maze.o pio.o button.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 	$(SIZE) $@
 
