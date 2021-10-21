@@ -1,7 +1,7 @@
 # File:   Makefile
-# Author: J. ZHU, G. ROSEMERGY
+# Author: J. ZHU (jzh208), G. ROSEMERGY (gro66)
 # Date:   12 OCT 2021
-# Descr:  Makefile for game file
+# Descr:  Makefile for MAZERUNNER game file
 
 # Definitions.
 CC = avr-gcc

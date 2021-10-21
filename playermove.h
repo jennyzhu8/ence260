@@ -1,5 +1,5 @@
 /** File:   Level.c
-    Author: J. ZHU, G. ROSEMERGY
+    Author: J. ZHU (jzh208), G. ROSEMERGY (gro66)
     Date:   12 OCT 2021
     Descr:  Player movement and position support
 */

@@ -1,7 +1,7 @@
 /** File:   game.c
-    Author: J. ZHU, G. ROSEMERGY
+    Author: J. ZHU (jzh208), G. ROSEMERGY (gro66)
     Date:   21 OCT 2021
-    Descr:  implementation of maze game
+    Descr:  implementation of MAZERUNNER game
 */
 
 #include "system.h"
